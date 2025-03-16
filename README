@@ -1,0 +1,4 @@
+It is driven with L293D motor driver using 2 front wheels and one caster wheel using Arduino Uno board. 
+It is controlled via Bluetooth with HC06 Bluetooth module on it. 
+The LCD screen and OLED screen on the front communicate with Arduino Uno via I2C. 
+Current control is provided with LM2596 Power Module and arranged as desired.
