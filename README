@@ -1,23 +1,56 @@
-```mermaid
-
 flowchart LR
-  A[Telefon] -->|Bluetooth| B[HC-06]
-  B --> D2[(Arduino D2 RXsoft)]
-  D3[(Arduino D3 TXsoft)] --> B
-  A4[(SDA)] -. I2C .-> LCD[LCD 16x2 0x27]
-  A5[(SCL)] -. I2C .-> LCD
-  A4 -. I2C .-> OLED[OLED 128x64 0x3C]
-  A5 -. I2C .-> OLED
-  D7 --> IN1
-  D6 --> IN2
-  D5 --> IN3
-  D4 --> IN4
-  D11 --> ENA[EN1,2]
-  D11 --> ENB[EN3,4]
-  V5[5V] --> Vcc1[L293D Vcc1]
-  Bat[(Motor Batarya +)] --> Vcc2[L293D Vcc2]
-  GND(((GND))) --- L293D_GND[L293D GND]
-  GND --- LCD
-  GND --- OLED
-  GND --- HC06
+  subgraph Arduino
+    D7[D7]:::pin --> IN1
+    D6[D6]:::pin --> IN2
+    D5[D5]:::pin --> IN3
+    D4[D4]:::pin --> IN4
+    D11[D11 PWM]:::pin --> ENA
+    D11 --> ENB
+    A4[A4 SDA]:::pin --> SDA
+    A5[A5 SCL]:::pin --> SCL
+    GNDa[GND]:::gnd
+    V5[5V]:::vcc
+    D2[D2 RXsoft]:::pin <-- HC_TX
+    D3[D3 TXsoft]:::pin --> HC_RX
+  end
 
+  subgraph L293D
+    IN1([IN1])
+    IN2([IN2])
+    IN3([IN3])
+    IN4([IN4])
+    ENA([EN1,2 pin1])
+    ENB([EN3,4 pin9])
+    Vcc1([Vcc1 5V])
+    Vcc2([Vcc2 Motor +])
+    GNDl([GND])
+    OUT1([OUT1]) --> MA[Motor A]
+    OUT2([OUT2]) --> MA
+    OUT3([OUT3]) --> MB[Motor B]
+    OUT4([OUT4]) --> MB
+  end
+
+  V5 --> Vcc1
+  GNDa --- GNDl
+  Bat[(Harici Batarya +)] --> Vcc2
+  Bat-[(Batarya -)] --- GNDl
+
+  subgraph I2C
+    LCD[LCD 16x2 0x27]
+    OLED[OLED SSD1306 0x3C]
+  end
+  SDA & SCL -. I2C bus .-> LCD
+  SDA & SCL -. I2C bus .-> OLED
+  V5 --> LCD
+  V5 --> OLED
+  GNDa --- LCD
+  GNDa --- OLED
+
+  subgraph HC06
+    HC_TX[TXD]
+    HC_RX[RXD (3.3V!)]
+  end
+
+classDef pin fill:#fff,stroke:#555,stroke-width:1px;
+classDef gnd fill:#eee,stroke:#333;
+classDef vcc fill:#eee,stroke:#333;
