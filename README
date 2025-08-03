@@ -1,3 +1,4 @@
+
 ```mermaid
 flowchart LR
   A[Telefon] -->|Bluetooth| B[HC-06]
@@ -19,3 +20,4 @@ flowchart LR
   GND --- LCD
   GND --- OLED
   GND --- HC06
+
