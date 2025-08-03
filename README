@@ -2,3 +2,25 @@ It is driven with L293D motor driver using 2 front wheels and one caster wheel u
 It is controlled via Bluetooth with HC06 Bluetooth module on it. 
 The LCD screen and OLED screen on the front communicate with Arduino Uno via I2C. 
 Current control is provided with LM2596 Power Module and arranged as desired.
+
+```mermaid
+flowchart LR
+  A[Telefon] -->|Bluetooth| B[HC-06]
+  B --> D2[(Arduino D2 RXsoft)]
+  D3[(Arduino D3 TXsoft)] --> B
+  A4[(SDA)] -. I2C .-> LCD[LCD 16x2 0x27]
+  A5[(SCL)] -. I2C .-> LCD
+  A4 -. I2C .-> OLED[OLED 128x64 0x3C]
+  A5 -. I2C .-> OLED
+  D7 --> IN1
+  D6 --> IN2
+  D5 --> IN3
+  D4 --> IN4
+  D11 --> ENA[EN1,2]
+  D11 --> ENB[EN3,4]
+  V5[5V] --> Vcc1[L293D Vcc1]
+  Bat[(Motor Batarya +)] --> Vcc2[L293D Vcc2]
+  GND(((GND))) --- L293D_GND[L293D GND]
+  GND --- LCD
+  GND --- OLED
+  GND --- HC06
