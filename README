@@ -1,3 +1,4 @@
+```mermaid
 flowchart LR
   subgraph Arduino
     D7[D7]:::pin --> IN1
@@ -54,3 +55,4 @@ flowchart LR
 classDef pin fill:#fff,stroke:#555,stroke-width:1px;
 classDef gnd fill:#eee,stroke:#333;
 classDef vcc fill:#eee,stroke:#333;
+```
