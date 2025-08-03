@@ -1,5 +1,5 @@
-
 ```mermaid
+
 flowchart LR
   A[Telefon] -->|Bluetooth| B[HC-06]
   B --> D2[(Arduino D2 RXsoft)]
