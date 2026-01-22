@@ -1,7 +1,20 @@
-```mermaid
-graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```
+### 🛠️ Donanım Bağlantı Şeması (Pinout)
+
+Aşağıdaki tablo, projedeki Arduino, L293D Motor Sürücü, Bluetooth ve ekran birimlerinin birbirleriyle olan bağlantılarını göstermektedir.
+
+| Kaynak (Arduino) | Hedef Modül | Modül Pini | Bağlantı Tipi / Not |
+| :--- | :--- | :--- | :--- |
+| **D11 (PWM)** | L293D | ENA & ENB | Motor Hız Kontrolü |
+| **D7** | L293D | IN1 | Motor A Kontrol |
+| **D6** | L293D | IN2 | Motor A Kontrol |
+| **D5** | L293D | IN3 | Motor B Kontrol |
+| **D4** | L293D | IN4 | Motor B Kontrol |
+| **A4 (SDA)** | I2C Bus (LCD & OLED) | SDA | Veri Hattı (0x27 / 0x3C) |
+| **A5 (SCL)** | I2C Bus (LCD & OLED) | SCL | Saat Hattı |
+| **D2 (RX)** | HC-06 Bluetooth | TXD | Seri Haberleşme |
+| **D3 (TX)** | HC-06 Bluetooth | RXD | Seri Haberleşme (**3.3V Dikkat!**) |
+| **5V** | L293D / LCD / OLED | VCC | Mantıksal Besleme |
+| **GND** | Tüm Modüller | GND | Ortak Şase |
+| **Harici Batarya (+)** | L293D | Vcc2 (Pin 8) | Motor Güç Kaynağı |
+
+> **⚠️ Önemli Not:** HC-06 RX pinine giden sinyal hattında gerilim bölücü kullanılması önerilir. Motorlar için mutlaka harici güç kaynağı kullanın ve şaseleri (GND) birleştirin.
