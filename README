@@ -1,16 +1,7 @@
-### Proje Bağlantı Şeması
-
 ```mermaid
-flowchart LR
-    A[Arduino] --> B[L293D Motor Sürücü]
-    B --> C[Motor A]
-    B --> D[Motor B]
-    
-    subgraph Sensors
-        E[HC-06 Bluetooth]
-        F[OLED Ekran]
-    end
-    
-    A --- E
-    A --- F
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
 ```
